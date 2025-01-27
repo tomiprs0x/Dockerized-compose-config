@@ -1,0 +1,32 @@
+version: '3'
+services:
+  chromium:
+    image: lscr.io/linuxserver/chromium:latest
+    container_name: chromium
+    security_opt:
+      - seccomp:unconfined #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - CUSTOM_PORT=3000 
+      - CUSTOM_HTTPS_PORT=3001
+   #  All Above configuration is optional  
+      - CUSTOM_USER=abc
+      - PASSWORD=abc
+   #  - SUBFOLDER=/subfolder/
+      - TITLE=Delta Chrome 
+   #  - FM_HOME=/config #optional
+   #  - START_DOCKER=false
+   #  - DRINODE=/dev/dri/renderD128 
+      - DISABLE_IPV6=true
+      - LC_ALL=en_US.UTF-8
+      - NO_DECOR=true
+      - NO_FULL=true
+    volumes:
+      - /path/to/config:/config
+    ports:
+      - 3000:3000
+      - 3001:3001
+    shm_size: "1gb"
+    restart: unless-stopped
